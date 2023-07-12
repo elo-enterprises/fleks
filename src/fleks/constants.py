@@ -1,5 +1,5 @@
-""" shimport.constants
+""" fleks.constants
 """
 import os
 
-LOG_LEVEL = os.environ.get("SHIMPORT_LOG_LEVEL", "WARNING")
+LOG_LEVEL = os.environ.get("FLEKS_LOG_LEVEL", "WARNING")
