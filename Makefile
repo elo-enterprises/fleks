@@ -14,8 +14,6 @@ NO_COLOR:=\033[0m
 COLOR_GREEN=\033[92m
 
 PYPI_PROJECT_NAME:=fleks
-PYPI_USER:=elo-e
-PYPI_TOKEN_CMD:=ssm get /elo/pypi/elo-e
 
 .PHONY: build docs test
 
@@ -50,8 +48,8 @@ clean:
 pypi-release:
 	PYPI_RELEASE=1 make build \
 	&& twine upload \
-	--user ${PYPI_USER} \
-	--password `${PYPI_TOKEN_CMD}` \
+	--user $${PYPI_USER} \
+	--password $${PYPI_TOKEN} \
 	dist/*
 
 release: clean normalize static-analysis test pypi-release
