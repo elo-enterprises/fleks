@@ -54,8 +54,8 @@ class classproperty:
     def __init__(self, fxn):
         self.fxn = fxn
 
-    def __get__(self, obj, owner) -> OptionalAny:
-        assert obj
+    def __get__(self, obj, owner) -> OptionalAny:  # noqa
+        # assert obj
         return self.fxn(owner)
 
 
@@ -64,8 +64,8 @@ class classproperty_cached(classproperty):
 
     CLASSPROP_CACHES = {}
 
-    def __get__(self, obj, owner) -> OptionalAny:
-        assert obj
+    def __get__(self, obj, owner) -> OptionalAny:  # noqa
+        # assert obj
         result = self.__class__.CLASSPROP_CACHES.get(self.fxn, self.fxn(owner))
         self.__class__.CLASSPROP_CACHES[self.fxn] = result
         return self.__class__.CLASSPROP_CACHES[self.fxn]
