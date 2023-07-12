@@ -17,10 +17,10 @@ PYPI_PROJECT_NAME:=shimport
 PYPI_USER:=elo-e
 PYPI_TOKEN_CMD:=ssm get /elo/pypi/elo-e
 
-.PHONY: build docs
+.PHONY: build docs test
 
 init:
-	$(call _announce_target, $@)
+	# $(call _announce_target, $@)
 	set -x \
 	; pip install --quiet -e .[dev] \
 	; pip install --quiet -e .[testing] \
