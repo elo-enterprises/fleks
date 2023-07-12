@@ -12,5 +12,6 @@ from rich.syntax import Syntax  # noqa
 from rich.table import Table  # noqa
 from rich.text import Text  # noqa
 
+
 class AppBase:
     pass
