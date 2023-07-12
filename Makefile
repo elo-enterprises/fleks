@@ -22,6 +22,7 @@ PYPI_TOKEN_CMD:=ssm get /elo/pypi/elo-e
 init:
 	# $(call _announce_target, $@)
 	set -x \
+	; pip install build \
 	; pip install --quiet -e .[dev] \
 	; pip install --quiet -e .[testing] \
 	; pip install --quiet -e .[publish]
