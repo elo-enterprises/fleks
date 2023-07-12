@@ -1,4 +1,8 @@
-import fleks
+"""
+"""
 
-def test_lazy():
+
+def test_imports():
+    import fleks  # noqa
+
     assert True

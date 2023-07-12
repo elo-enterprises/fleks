@@ -29,8 +29,7 @@ CallableNamespace = typing.Dict[str, typing.Callable]
 
 
 def new_in_class(name: str, kls: typing.Type):
-    """
-    """
+    """ """
     return name in dir(kls) and not any([name in dir(base) for base in kls.__bases__])
 
 
@@ -56,6 +55,7 @@ class classproperty:
         self.fxn = fxn
 
     def __get__(self, obj, owner) -> OptionalAny:
+        assert obj
         return self.fxn(owner)
 
 
@@ -65,6 +65,7 @@ class classproperty_cached(classproperty):
     CLASSPROP_CACHES = {}
 
     def __get__(self, obj, owner) -> OptionalAny:
+        assert obj
         result = self.__class__.CLASSPROP_CACHES.get(self.fxn, self.fxn(owner))
         self.__class__.CLASSPROP_CACHES[self.fxn] = result
         return self.__class__.CLASSPROP_CACHES[self.fxn]

@@ -4,6 +4,8 @@ import collections
 
 from fleks.util import lme, typing
 
+from .namespace import namespace
+
 LOGGER = lme.get_logger(__name__)
 VLOGGER = lme.get_logger("fleks::validation")
 
@@ -12,9 +14,6 @@ type_spec = collections.namedtuple("type_spec", "name bases namespace")
 
 class ClassMalformed(TypeError):
     """ """
-
-
-from .namespace import namespace
 
 
 def filter_by_type(namespace=None, kls=None, type=None):

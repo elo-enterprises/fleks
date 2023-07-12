@@ -4,9 +4,9 @@ from memoized_property import memoized_property
 
 from fleks.util import lme, typing
 
-LOGGER = lme.get_logger(__name__)
-
 from .meta import Meta
+
+LOGGER = lme.get_logger(__name__)
 
 
 class Plugin(metaclass=Meta):

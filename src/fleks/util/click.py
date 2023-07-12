@@ -1,20 +1,16 @@
 """ fleks.util.click """
-import sys
 
 from click.core import Context as ClickContext
 
 
-def click_recursive_help(cmd, parent=None, out={}, file=sys.stdout):
-    """
-
-    :param cmd: param parent:  (Default value = None)
-    :param out: Default value = {})
-    :param file: Default value = sys.stdout)
-    :param parent:  (Default value = None)
-
-    """
+def click_recursive_help(
+    cmd,
+    parent=None,
+    out={},
+    # file=sys.stdout
+):
+    """ """
     # source: adapted from https://stackoverflow.com/questions/57810659/automatically-generate-all-help-documentation-for-click-commands
-
     full_name = cmd.name
     pname = getattr(cmd, "parent", None)
     pname = parent and getattr(parent, "name", "") or ""
