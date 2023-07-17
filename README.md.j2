@@ -22,14 +22,40 @@
 
 ## Overview
 
-Placeholder
+Application framework for python.  This is experimental; API-stability is not guaranteeed.
+
+### Features 
+
+* Plugin Framework
+* CLI parsing with [click](#placeholder)
+* Console output with [rich](https://rich.readthedocs.io/en/stable/index.html)
+* Exit-handlers 
+
+---------------------------------------------------------------------------------
 
 ## Installation
 
-Placeholder
+See [pypi](https://pypi.org/project/fleks/) for available releases.
+
+```
+pip install fleks
+```
+
+---------------------------------------------------------------------------------
 
 ## Usage
 
+See also [the unit-tests](tests/units) for some examples of library usage.
+
+### Class-Properties
+
 ```
-Placeholder
+import fleks 
+
+class Test:
+  @fleks.classproperty 
+  def testing(kls):
+    return 42
+
+assert Test.testing==42
 ```
