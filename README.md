@@ -12,6 +12,10 @@
     <td width=15%><img src=img/icon.png style="width:250px"></td>
     <td>
     Python application framework
+    <br/><br/>
+    <a href=https://pypi.python.org/pypi/fleks/><img src="https://img.shields.io/pypi/l/fleks.svg"></a>
+    <a href=https://pypi.python.org/pypi/fleks/><img src="https://badge.fury.io/py/fleks.svg"></a>
+    <a href="https://github.com/elo-enterprises/fleks/actions/workflows/python-test.yml"><img src="https://github.com/elo-enterprises/fleks/actions/workflows/python-test.yml/badge.svg"></a>    
     </td>
   </tr>
 </table>
