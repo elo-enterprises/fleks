@@ -21,24 +21,31 @@
 </table>
 
   * [Overview](#overview)
-    * [Features](#features)
+  * [Features](#features)
   * [Installation](#installation)
   * [Usage](#usage)
     * [Class-Properties](#class-properties)
+    * [Typing helpers](#typing-helpers)
+    * [Base-classes for Configuration](#base-classes-for-configuration)
+    * [Base-classes for Configuration](#base-classes-for-configuration-1)
 
 
 ---------------------------------------------------------------------------------
 
 ## Overview
 
-Application framework for python.  This is experimental; API-stability is not guaranteeed.
+Application framework for python.  
 
-### Features 
+(This is experimental; API-stability is not guaranteed.)
 
-* Plugin Framework
-* CLI parsing with [click](#placeholder)
+---------------------------------------------------------------------------------
+
+## Features 
+
+* CLI parsing with [click](https://click.palletsprojects.com/en/8.1.x/)
 * Console output with [rich](https://rich.readthedocs.io/en/stable/index.html)
-* Exit-handlers 
+* Plugin Framework
+* Exit-handlers, conventions for handling logging, etc
 
 ---------------------------------------------------------------------------------
 
@@ -68,3 +75,23 @@ class Test:
 
 assert Test.testing==42
 ```
+
+### Typing helpers
+
+```
+Placeholder
+```
+
+### Base-classes for Configuration
+
+```
+Placeholder
+```
+
+### Base-classes for Configuration
+
+```
+Placeholder
+```
+
+---------------------------------------------------------------------------------
