@@ -7,6 +7,9 @@ def click_recursive_help(
     cmd,
     parent=None,
     out={},
+    dotpath: str = None,
+    module: str = None,
+    path: str = None,
     # file=sys.stdout
 ):
     """ """
@@ -23,11 +26,21 @@ def click_recursive_help(
         **out,
         **{
             full_name: dict(
-                name=cmd.name, invocation_sample=invocation_sample, help=help_txt
+                name=cmd.name,
+                path=path,
+                dotpath=dotpath,
+                module=module,
+                invocation_sample=invocation_sample.lstrip().rstrip(),
+                help=help_txt,
             )
         },
     }
     commands = getattr(cmd, "commands", {})
     for sub in commands.values():
-        out = {**out, **click_recursive_help(sub, ctx)}
+        out = {
+            **out,
+            **click_recursive_help(
+                sub, parent=ctx, dotpath=dotpath, module=module, path=path
+            ),
+        }
     return out
