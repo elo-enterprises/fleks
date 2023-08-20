@@ -24,6 +24,7 @@
   * [Features](#features)
   * [Installation](#installation)
   * [Usage](#usage)
+    * [Tags &amp; Tagging](#tags--tagging)
     * [Class-Properties](#class-properties)
     * [Typing helpers](#typing-helpers)
     * [Base-classes for Configuration](#base-classes-for-configuration)
@@ -34,9 +35,10 @@
 
 ## Overview
 
+*(This is experimental; API-stability is not guaranteed.)*
+
 Application framework for python.  
 
-(This is experimental; API-stability is not guaranteed.)
 
 ---------------------------------------------------------------------------------
 
@@ -53,7 +55,7 @@ Application framework for python.
 
 See [pypi](https://pypi.org/project/fleks/) for available releases.
 
-```
+```bash
 pip install fleks
 ```
 
@@ -63,17 +65,28 @@ pip install fleks
 
 See also [the unit-tests](tests/units) for some examples of library usage.
 
+### Tags & Tagging
+
+```python
+
+>>> from fleks import tagging
+
+>> class MyClass(): pass
+
+>> tagging.tag(key="Value")(MyClass)
+>> assert tagging.tags[MyClass]['key']=="Value"
+```
+
 ### Class-Properties
 
-```
-import fleks 
+```python
+>>> import fleks 
 
-class Test:
-  @fleks.classproperty 
-  def testing(kls):
-    return 42
-
-assert Test.testing==42
+>>> class Test:
+>>>  @fleks.classproperty 
+>>>  def testing(kls):
+>>>    return 42
+>>> assert Test.testing==42
 ```
 
 ### Typing helpers
