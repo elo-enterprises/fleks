@@ -27,7 +27,11 @@ output = click.option(
     "--output", "-o", default="", help=("output file to write.  (optional)")
 )
 output_file = click.option(
-    "--output", "-o", metavar='output_file', default="", help=("output file to write.  (optional)")
+    "--output",
+    "-o",
+    metavar="output_file",
+    default="",
+    help=("output file to write.  (optional)"),
 )
 output_dir = click.option(
     "--output-dir", default="docs/cli", help=("output directory (optional)")

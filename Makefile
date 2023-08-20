@@ -73,6 +73,9 @@ test: test-units test-integrations smoke-test
 plan: docs-plan
 apply: docs-apply
 
+dtest: tox-dtest
+docs-test: dtest
+test-docs: docs-test
 docs-plan:
 	tox -e docs-plan
 docs: docs-apply
