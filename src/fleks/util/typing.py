@@ -1,4 +1,4 @@
-""" {{pkg}}.util.types
+""" fleks.util.types
 
 This module collects common imports and annotation-types, i.e.
 various optional/composite types used in type-hints, underneath
@@ -10,6 +10,9 @@ from pathlib import Path as BasePath
 
 from types import *  # noqa
 from typing import *  # noqa
+
+from pydantic import BaseModel, Field, validate_arguments  # noqa
+validate = validate_arguments
 
 OptionalAny = typing.Optional[typing.Any]
 PathType = type(BasePath())

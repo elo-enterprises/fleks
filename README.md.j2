@@ -56,6 +56,19 @@ pip install fleks
 
 See also [the unit-tests](tests/units) for some examples of library usage.
 
+### Tags & Tagging
+
+```python
+
+>>> from fleks import tagging
+
+@tagging.tags(key="Value")
+class MyClass():
+  ...
+
+assert tagging.tags[MyClass]['key']=="Value"
+```
+
 ### Class-Properties
 
 ```
