@@ -60,16 +60,20 @@ See also [the unit-tests](tests/units) for some examples of library usage.
 
 ```python
 
->>> from fleks import tagging
->> class MyClass():
->>   pass
->> tagging.tag(key="Value")(MyClass)
->> assert tagging.tags[MyClass]['key']=="Value"
+from fleks import tagging
+
+@tagging.tag(key="Value")
+class MyClass():
+   pass
+ tagging.tag(key="Value")(MyClass)
+
+assert tagging.tags[MyClass]['key']=="Value"
 ```
 
 ### Class-Properties
 
 ```python
+
 import fleks 
 
 class Test:
@@ -82,14 +86,9 @@ assert Test.testing==42
 
 ### Typing helpers
 
-```
-Placeholder
-```
+```python
 
-### Base-classes for Configuration
-
-```
-Placeholder
+>>> from fleks.util import typing
 ```
 
 ### Base-classes for Configuration
