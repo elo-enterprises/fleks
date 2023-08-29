@@ -8,7 +8,8 @@ on:
   pull_request:
     branches: [ "master" ]
     paths-ignore:
-      - '**.md'    
+    - '**.md'    
+    - '**.png'    
 permissions:
   contents: read
 jobs:
