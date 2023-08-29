@@ -1,10 +1,16 @@
 """ fleks.config
 """
-from fleks import typing
+from fleks.util import typing
+
+
 class Config(typing.BaseModel):
     """ """
 
     config_key: typing.ClassVar[str] = None
+    # debug = False
+    # parent = None
+    # priority = 100
+    # override_from_base = True
 
     def __init__(self, **this_config) -> None:
         """ """
@@ -18,11 +24,6 @@ class Config(typing.BaseModel):
         #     else:
         #         self[pname] = getattr(self, pname)
         # self.resolve_conflicts(conflicts)
-
-    # debug = False
-    # parent = None
-    # priority = 100
-    # override_from_base = True
 
     def __getitem__(
         self,
