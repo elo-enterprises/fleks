@@ -1,19 +1,16 @@
-<!--- This is a markdown file.  Comments look like this --->
 <table>
   <tr>
-    <td colspan=2><strong>
-    fleks
-      </strong>&nbsp;&nbsp;&nbsp;&nbsp;
+    <td colspan=2>
+      <strong>{{project.name}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href={{pypi.project_url}}><img src="https://img.shields.io/pypi/l/{{project.name}}.svg"></a>
+      <a href={{pypi.project_url}}><img src="https://badge.fury.io/py/{{project.name}}.svg"></a>
+      {%for action in github.actions%}<a href="{{action.url}}"><img src="{{action.url}}/badge.svg"></a>{%endfor%}
     </td>
   </tr>
   <tr>
-    <td width=15%><img src={{github.repo_url}}/blob/master/img/icon.png?raw=true style="width:250px"></td>
+    <td width=15%><img src={{github.raw_url}}/master/img/icon.png style="width:150px"></td>
     <td>
     Python application framework
-    <br/><br/>
-    <a href=https://pypi.python.org/pypi/fleks/><img src="https://img.shields.io/pypi/l/fleks.svg"></a>
-    <a href=https://pypi.python.org/pypi/fleks/><img src="https://badge.fury.io/py/fleks.svg"></a>
-    <a href="https://github.com/elo-enterprises/fleks/actions/workflows/python-test.yml"><img src="https://github.com/elo-enterprises/fleks/actions/workflows/python-test.yml/badge.svg"></a>    
     </td>
   </tr>
 </table>
@@ -57,42 +54,47 @@ See also [the unit-tests](tests/units) for some examples of library usage.
 ### Tags & Tagging
 
 ```python
-
-from fleks import tagging
-
-@tagging.tag(key="Value")
-class MyClass():
-   pass
- tagging.tag(key="Value")(MyClass)
-
-assert tagging.tags[MyClass]['key']=="Value"
+>>> from fleks import tagging
+>>> class MyClass(): pass
+>>> tagging.tags(key="Value")(MyClass)
+<class '__main__.MyClass'>
+>>> assert tagging.tags[MyClass]['key']=="Value"
+>>>
 ```
 
 ### Class-Properties
 
 ```python
-
-import fleks 
-
-class Test:
-  @fleks.classproperty 
-  def testing(kls):
-    return 42
-
-assert Test.testing==42
+>>> import fleks 
+>>> class Test:
+...   @fleks.classproperty 
+...   def testing(kls):
+...      return 42
+>>> assert Test.testing==42
+>>>
 ```
 
 ### Typing helpers
 
-```python
 
->>> from fleks.util import typing
+[fleks.util.typing](src/fleks/util/typing.py) collects common imports and annotation-types, i.e. various optional/composite types used in type-hints, underneath one convenient namespace.  This includes stuff from:
+
+* [stdlib's `typing`](https://docs.python.org/3/library/typing.html)
+* [stdlib's `types`](https://docs.python.org/3/library/types.html)
+* [pydantics BaseModel's and Field's, etc](https://docs.pydantic.dev/latest/usage/fields/)
+ 
+```
+>>> from fleks import typing
+>>> print(sorted([name for name in dir(typing) if name.title()==name]))
+['Annotated', 'Any', 'Awaitable', 'Bool', 'Callable', 'Collection', 'Container', 'Coroutine', 'Counter', 'Deque', 'Dict', 'Field', 'Final', 'Generator', 'Generic', 'Hashable', 'Iterable', 'Iterator', 'List', 'Literal', 'Mapping', 'Match', 'Namespace', 'Optional', 'Pattern', 'Protocol', 'Reversible', 'Sequence', 'Set', 'Sized', 'Text', 'Tuple', 'Type', 'Union']
+>>>
 ```
 
 ### Base-classes for Configuration
 
-```
-Placeholder
+```python
+>>> from fleks import Config
+>>>
 ```
 
 ---------------------------------------------------------------------------------
