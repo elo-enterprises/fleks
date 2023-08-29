@@ -32,18 +32,14 @@ Namespace = typing.Dict[str, typing.Any]
 CallableNamespace = typing.Dict[str, typing.Callable]
 
 
-def new_in_class(name: str, kls: typing.Type):
+def new_in_class(name: str, kls: typing.Type) -> bool:
     """ """
     return name in dir(kls) and not any([name in dir(base) for base in kls.__bases__])
 
 
-def is_subclass(x, y, strict=True):
+def is_subclass(x, y, strict=True) -> bool:
     """
-
-    :param x: param y:
-    :param strict: Default value = True)
-    :param y:
-
+    returns True if first argument is a subclass of second one.
     """
     if isinstance(x, (typing.Type)) and issubclass(x, y):
         if strict and x == y:
