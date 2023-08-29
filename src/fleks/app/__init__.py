@@ -2,8 +2,7 @@
 """
 
 from rich.align import Align  # noqa
-from rich.console import Console  # noqa
-from rich.console import Theme  # noqa
+from rich.console import Console, Group, Theme  # noqa
 from rich.emoji import Emoji  # noqa
 from rich.markdown import Markdown  # noqa
 from rich.panel import Panel  # noqa
