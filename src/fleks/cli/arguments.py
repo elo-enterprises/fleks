@@ -1,5 +1,6 @@
 """ fleks.cli.arguments
 """
+
 from fleks.cli import click
 
 file = click.argument("file", nargs=1)

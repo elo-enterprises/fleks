@@ -1,5 +1,6 @@
 """
 """
+
 import collections
 from gettext import gettext as _
 

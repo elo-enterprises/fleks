@@ -8,6 +8,7 @@
     [1]: tests/units/test_util_tagging.py
     [2]: fleks.tagging
 """
+
 from __future__ import annotations
 
 from collections import defaultdict
