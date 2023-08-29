@@ -15,14 +15,7 @@
   </tr>
 </table>
 
-  * [Overview](#overview)
-  * [Features](#features)
-  * [Installation](#installation)
-  * [Usage](#usage)
-    * [Tags &amp; Tagging](#tags--tagging)
-    * [Class-Properties](#class-properties)
-    * [Typing helpers](#typing-helpers)
-    * [Base-classes for Configuration](#base-classes-for-configuration)
+
 
 
 ---------------------------------------------------------------------------------
@@ -61,7 +54,7 @@ See also [the unit-tests](tests/units) for some examples of library usage.
 
 ### Tags & Tagging
 
-```python
+```pycon
 >>> from fleks import tagging
 >>> class MyClass(): pass
 >>> tagging.tags(key="Value")(MyClass)
@@ -72,7 +65,7 @@ See also [the unit-tests](tests/units) for some examples of library usage.
 
 ### Class-Properties
 
-```python
+```pycon
 >>> import fleks 
 >>> class Test:
 ...   @fleks.classproperty 
@@ -91,7 +84,7 @@ See also [the unit-tests](tests/units) for some examples of library usage.
 * [stdlib's `types`](https://docs.python.org/3/library/types.html)
 * [pydantics BaseModel's and Field's, etc](https://docs.pydantic.dev/latest/usage/fields/)
  
-```
+```pycon
 >>> from fleks import typing
 >>> print(sorted([name for name in dir(typing) if name.title()==name]))
 ['Annotated', 'Any', 'Awaitable', 'Bool', 'Callable', 'Collection', 'Container', 'Coroutine', 'Counter', 'Deque', 'Dict', 'Field', 'Final', 'Generator', 'Generic', 'Hashable', 'Iterable', 'Iterator', 'List', 'Literal', 'Mapping', 'Match', 'Namespace', 'Optional', 'Pattern', 'Protocol', 'Reversible', 'Sequence', 'Set', 'Sized', 'Text', 'Tuple', 'Type', 'Union']
@@ -100,7 +93,7 @@ See also [the unit-tests](tests/units) for some examples of library usage.
 
 ### Base-classes for Configuration
 
-```python
+```pycon
 >>> from fleks import Config
 >>>
 ```

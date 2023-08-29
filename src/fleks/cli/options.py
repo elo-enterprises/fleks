@@ -2,6 +2,7 @@
 
     Common options for CLI
 """
+
 import os
 
 from fleks.cli import click

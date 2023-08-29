@@ -1,5 +1,6 @@
 """ setup.py for shimport
 """
+
 import os
 
 from setuptools import setup

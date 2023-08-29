@@ -1,9 +1,13 @@
 """ fleks.config
 """
+
+import pydash
+
+from fleks import models
 from fleks.util import typing
 
 
-class Config(typing.BaseModel):
+class Config(models.BaseModel):
     """ """
 
     config_key: typing.ClassVar[str] = None
@@ -32,13 +36,14 @@ class Config(typing.BaseModel):
         if isinstance(key, (slice,)):
             start, stop, step = key.start, key.stop, key.step
             raise Exception("niy")
+        tmp = self.dict(
+            # exclude_unset=True,
+            by_alias=True
+        )
         try:
-            return self.dict(
-                # exclude_unset=True,
-                by_alias=True
-            )[key]
+            return tmp[key]
         except (KeyError, TypeError) as exc:
-            raise
+            return pydash.get(tmp, key)
 
     def __repr__(self):
         return f"<{self.__class__.__name__}['{self.__class__.config_key}']>"
@@ -95,5 +100,6 @@ class Config(typing.BaseModel):
     #         self.logger.info(f"{msg}\n  {tmp}")
     # def __iter__(self):
     #     return iter(self.as_dict())
+
     # def __rich__(self):
     #     return self.as_dict()
