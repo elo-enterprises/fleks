@@ -4,12 +4,10 @@
     <td colspan=2><strong>
     fleks
       </strong>&nbsp;&nbsp;&nbsp;&nbsp;
-      <small><small>
-      </small></small>
     </td>
   </tr>
   <tr>
-    <td width=15%><img src=img/icon.png style="width:250px"></td>
+    <td width=15%><img src=https://github.com/elo-enterprises/fleks/blob/master/img/icon.png?raw=true style="width:250px"></td>
     <td>
     Python application framework
     <br/><br/>
@@ -28,7 +26,6 @@
     * [Class-Properties](#class-properties)
     * [Typing helpers](#typing-helpers)
     * [Base-classes for Configuration](#base-classes-for-configuration)
-    * [Base-classes for Configuration](#base-classes-for-configuration-1)
 
 
 ---------------------------------------------------------------------------------
@@ -69,36 +66,35 @@ See also [the unit-tests](tests/units) for some examples of library usage.
 
 ```python
 
->>> from fleks import tagging
+from fleks import tagging
 
->> class MyClass(): pass
+@tagging.tag(key="Value")
+class MyClass():
+   pass
+ tagging.tag(key="Value")(MyClass)
 
->> tagging.tag(key="Value")(MyClass)
->> assert tagging.tags[MyClass]['key']=="Value"
+assert tagging.tags[MyClass]['key']=="Value"
 ```
 
 ### Class-Properties
 
 ```python
->>> import fleks 
 
->>> class Test:
->>>  @fleks.classproperty 
->>>  def testing(kls):
->>>    return 42
->>> assert Test.testing==42
+import fleks 
+
+class Test:
+  @fleks.classproperty 
+  def testing(kls):
+    return 42
+
+assert Test.testing==42
 ```
 
 ### Typing helpers
 
-```
-Placeholder
-```
+```python
 
-### Base-classes for Configuration
-
-```
-Placeholder
+>>> from fleks.util import typing
 ```
 
 ### Base-classes for Configuration
