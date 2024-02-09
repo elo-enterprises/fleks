@@ -1,5 +1,6 @@
 """ fleks.cli.click
 """
+
 import click
 
 from fleks.util import typing

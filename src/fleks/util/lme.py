@@ -1,5 +1,6 @@
-""" {{pkg}}.util.lme
+""" fleks.util.lme
 """
+
 import logging
 
 from rich.style import Style

@@ -1,5 +1,6 @@
 """ fleks.plugin
 """
+
 from memoized_property import memoized_property
 
 from fleks.util import lme, typing
