@@ -17,25 +17,26 @@
 
 {{markdown_toc(__template__, level=2)}}
 
----------------------------------------------------------------------------------
+---------------------------------------------------------------------
 
 ## Overview
 
 *(This is experimental; API-stability is not guaranteed.)*
 
-Application framework for python.  
+Batteries-included application framework for python, including all the stuff you get tired of building from scratch: Logging, CLI parsing, exit-handlers, data-structures and more.
 
 
----------------------------------------------------------------------------------
+---------------------------------------------------------------------
 
-## Features 
+## Features
 
+* Conventions for handling logging
 * CLI parsing with [click](https://click.palletsprojects.com/en/8.1.x/)
 * Console output with [rich](https://rich.readthedocs.io/en/stable/index.html)
+* Exit-handlers
 * Plugin Framework
-* Exit-handlers, conventions for handling logging, etc
 
----------------------------------------------------------------------------------
+---------------------------------------------------------------------
 
 ## Installation
 
@@ -45,11 +46,11 @@ See [pypi](https://pypi.org/project/fleks/) for available releases.
 pip install fleks
 ```
 
----------------------------------------------------------------------------------
+---------------------------------------------------------------------
 
 ## Usage
 
-See also [the unit-tests](tests/units) for some examples of library usage.
+See also [the unit-tests](tests/units) for more examples of library usage.
 
 ### Tags & Tagging
 
@@ -65,9 +66,9 @@ See also [the unit-tests](tests/units) for some examples of library usage.
 ### Class-Properties
 
 ```python
->>> import fleks 
+>>> import fleks
 >>> class Test:
-...   @fleks.classproperty 
+...   @fleks.classproperty
 ...   def testing(kls):
 ...      return 42
 >>> assert Test.testing==42
@@ -82,7 +83,7 @@ See also [the unit-tests](tests/units) for some examples of library usage.
 * [stdlib's `typing`](https://docs.python.org/3/library/typing.html)
 * [stdlib's `types`](https://docs.python.org/3/library/types.html)
 * [pydantics BaseModel's and Field's, etc](https://docs.pydantic.dev/latest/usage/fields/)
- 
+
 ```
 >>> from fleks import typing
 >>> print(sorted([name for name in dir(typing) if name.title()==name]))
@@ -97,4 +98,4 @@ See also [the unit-tests](tests/units) for some examples of library usage.
 >>>
 ```
 
----------------------------------------------------------------------------------
+---------------------------------------------------------------------
