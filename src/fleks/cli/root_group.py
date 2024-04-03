@@ -28,27 +28,27 @@ class RootGroup(click.Group):
             if cmd is None or cmd.hidden:
                 continue
             commands.append((subcommand, cmd))
+        commands=dict(commands)
         if len(commands):
             # allow for 3 times the default spacing
             limit = formatter.width - 6 - max(len(cmd[0]) for cmd in commands)
-            plugin_subs = {
-                getattr(v["kls"], "cli_name", v["kls"].name): v for k, v in {}.items()
-            }
-
+            plugin_subs = dict([ [name,obj] for name,obj in commands.items() if obj.__class__.__name__=='Group'])
             toplevel = dict(core=[], plugins=collections.defaultdict(list))
-            for subcommand, cmd in commands:
+            for subcommand, cmd in commands.items():
                 help = cmd.get_short_help_str(limit)
-                is_plugin = subcommand in plugin_subs
+                is_plugin = cmd in list(plugin_subs.values())
                 label = ""
                 if is_plugin:
-                    plugin_kls = plugin_subs[subcommand]["kls"]
-                    if issubclass(plugin_kls, (fleks.Plugin,)):
-                        tmp = plugin_kls.cli_label
-                        toplevel["plugins"][tmp].append(
+                    subcom_obj = plugin_subs[subcommand]
+                    plugin_class = getattr(subcom_obj,'plugin_class', None)
+                    # if issubclass(plugin_kls, (fleks.Plugin,)):
+                    cli_label = getattr(plugin_class, 'cli_label', None)
+                    if cli_label:
+                        toplevel["plugins"][cli_label].append(
                             (f"{subcommand}:", f"{cmd.help}")
                         )
-                else:
-                    toplevel["core"].append((f"{subcommand}:", f"{cmd.help}"))
+                        continue
+                toplevel["core"].append((f"{subcommand}:", f"{cmd.help}"))
                 # category.append((f"{subcommand}", f"{label}{help}"))
 
             if toplevel["core"]:
