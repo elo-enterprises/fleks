@@ -33,7 +33,10 @@ class RootGroup(click.Group):
             # allow for 3 times the default spacing
             limit = formatter.width - 6 - max(len(cmd[0]) for cmd in commands)
             plugin_subs = dict([ [name,obj] for name,obj in commands.items() if obj.__class__.__name__=='Group'])
-            toplevel = dict(core=[], plugins=collections.defaultdict(list))
+            toplevel = dict(
+                core=[],
+                meta=collections.defaultdict(collections.defaultdict),
+                plugins=collections.defaultdict(list))
             for subcommand, cmd in commands.items():
                 help = cmd.get_short_help_str(limit)
                 is_plugin = cmd in list(plugin_subs.values())
@@ -43,19 +46,18 @@ class RootGroup(click.Group):
                     plugin_class = getattr(subcom_obj,'plugin_class', None)
                     # if issubclass(plugin_kls, (fleks.Plugin,)):
                     cli_label = getattr(plugin_class, 'cli_label', None)
+                    cli_description = getattr(plugin_class,
+                        'cli_description',
+                        getattr(plugin_class.__class__,'cli_description',plugin_class.__doc__))
                     if cli_label:
                         toplevel["plugins"][cli_label].append(
                             (f"{subcommand}:", f"{cmd.help}")
                         )
+                        toplevel['meta'][cli_label]['description'] = cli_description
                         continue
                 toplevel["core"].append((f"{subcommand}:", f"{cmd.help}"))
-                # category.append((f"{subcommand}", f"{label}{help}"))
 
             if toplevel["core"]:
-
-                def search(rows, term):
-                    return [i for i, (subc, subh) in enumerate(rows) if subc == term][0]
-
                 order = ["plan", "apply", "config", "config-raw"]
                 ordering = []
                 for o in order:
@@ -64,17 +66,18 @@ class RootGroup(click.Group):
                             ordering.append((subc, subh))
                             toplevel["core"].remove((subc, subh))
                 toplevel["core"] = ordering + toplevel["core"]
-                with formatter.section(_("Core COMMANDs")):
+                with formatter.section(_(click.style("Core Subcommands",bold=True))):
                     formatter.write_dl(toplevel["core"])
-
             for label in toplevel["plugins"]:
-                with formatter.section(_(f"{label.title()} COMMANDs")):
+                cli_description = toplevel['meta'][label]['description']
+                with formatter.section(_(click.style(f"{label.title()}",bold=True))):
+                    if cli_description:
+                        formatter.write_text(click.style(f"{cli_description.lstrip()}",dim=True))
                     formatter.write_dl(toplevel["plugins"][label])
 
     def format_usage(self, ctx, formatter):
         """
         :param ctx: param formatter:
-        :param formatter:
         """
         # terminal_width, _ = click.get_terminal_size()
         terminal_width = 30
