@@ -6,8 +6,6 @@ from gettext import gettext as _
 
 import click
 
-import fleks
-
 
 class RootGroup(click.Group):
     """ """
@@ -28,32 +26,43 @@ class RootGroup(click.Group):
             if cmd is None or cmd.hidden:
                 continue
             commands.append((subcommand, cmd))
-        commands=dict(commands)
+        commands = dict(commands)
         if len(commands):
             # allow for 3 times the default spacing
             limit = formatter.width - 6 - max(len(cmd[0]) for cmd in commands)
-            plugin_subs = dict([ [name,obj] for name,obj in commands.items() if obj.__class__.__name__=='Group'])
+            plugin_subs = {
+                name: obj
+                for name, obj in commands.items()
+                if obj.__class__.__name__ == "Group"
+            }
             toplevel = dict(
                 core=[],
                 meta=collections.defaultdict(collections.defaultdict),
-                plugins=collections.defaultdict(list))
+                plugins=collections.defaultdict(list),
+            )
             for subcommand, cmd in commands.items():
                 help = cmd.get_short_help_str(limit)
                 is_plugin = cmd in list(plugin_subs.values())
                 label = ""
                 if is_plugin:
                     subcom_obj = plugin_subs[subcommand]
-                    plugin_class = getattr(subcom_obj,'plugin_class', None)
+                    plugin_class = getattr(subcom_obj, "plugin_class", None)
                     # if issubclass(plugin_kls, (fleks.Plugin,)):
-                    cli_label = getattr(plugin_class, 'cli_label', None)
-                    cli_description = getattr(plugin_class,
-                        'cli_description',
-                        getattr(plugin_class.__class__,'cli_description',plugin_class.__doc__))
+                    cli_label = getattr(plugin_class, "cli_label", None)
+                    cli_description = getattr(
+                        plugin_class,
+                        "cli_description",
+                        getattr(
+                            plugin_class.__class__,
+                            "cli_description",
+                            plugin_class.__doc__,
+                        ),
+                    )
                     if cli_label:
                         toplevel["plugins"][cli_label].append(
                             (f"{subcommand}:", f"{cmd.help}")
                         )
-                        toplevel['meta'][cli_label]['description'] = cli_description
+                        toplevel["meta"][cli_label]["description"] = cli_description
                         continue
                 toplevel["core"].append((f"{subcommand}:", f"{cmd.help}"))
 
@@ -66,13 +75,15 @@ class RootGroup(click.Group):
                             ordering.append((subc, subh))
                             toplevel["core"].remove((subc, subh))
                 toplevel["core"] = ordering + toplevel["core"]
-                with formatter.section(_(click.style("Core Subcommands",bold=True))):
+                with formatter.section(_(click.style("Core Subcommands", bold=True))):
                     formatter.write_dl(toplevel["core"])
             for label in toplevel["plugins"]:
-                cli_description = toplevel['meta'][label]['description']
-                with formatter.section(_(click.style(f"{label.title()}",bold=True))):
+                cli_description = toplevel["meta"][label]["description"]
+                with formatter.section(_(click.style(f"{label.title()}", bold=True))):
                     if cli_description:
-                        formatter.write_text(click.style(f"{cli_description.lstrip()}",dim=True))
+                        formatter.write_text(
+                            click.style(f"{cli_description.lstrip()}", dim=True)
+                        )
                     formatter.write_dl(toplevel["plugins"][label])
 
     def format_usage(self, ctx, formatter):
