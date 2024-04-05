@@ -77,7 +77,10 @@ class RootGroup(click.Group):
                 toplevel["core"] = ordering + toplevel["core"]
                 with formatter.section(_(click.style("Top-level", bold=True))):
                     formatter.write_text(
-                        click.style(f"Core functionality (these names are forbid to plugins)", dim=True)
+                        click.style(
+                            "Core functionality (these names are forbid to plugins)",
+                            dim=True,
+                        )
                     )
                     formatter.write_dl(toplevel["core"])
             for label in toplevel["plugins"]:
