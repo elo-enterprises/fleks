@@ -75,7 +75,10 @@ class RootGroup(click.Group):
                             ordering.append((subc, subh))
                             toplevel["core"].remove((subc, subh))
                 toplevel["core"] = ordering + toplevel["core"]
-                with formatter.section(_(click.style("Core Subcommands", bold=True))):
+                with formatter.section(_(click.style("Top-level", bold=True))):
+                    formatter.write_text(
+                        click.style(f"Core functionality (these names are forbid to plugins)", dim=True)
+                    )
                     formatter.write_dl(toplevel["core"])
             for label in toplevel["plugins"]:
                 cli_description = toplevel["meta"][label]["description"]
