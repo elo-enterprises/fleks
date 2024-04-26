@@ -11,6 +11,8 @@ from rich.default_styles import DEFAULT_STYLES
 
 from fleks import constants
 
+from .console import color_disabled, is_notebook
+
 THEME = Theme(
     {
         **DEFAULT_STYLES,
@@ -36,7 +38,13 @@ THEME = Theme(
         },
     }
 )
-CONSOLE = Console(theme=THEME, stderr=True)
+
+COLOR_SYSTEM = None if any([is_notebook(), color_disabled()]) else "auto"
+CONSOLE = Console(
+    theme=THEME,
+    stderr=True,
+    color_system=COLOR_SYSTEM,
+)
 
 
 def set_global_level(level):
