@@ -56,18 +56,7 @@ JSONEncoder.register_encoder(type=pathlib.Path, fxn=lambda v: str(v))
 JSONEncoder.register_encoder(type=pathlib.PosixPath, fxn=lambda v: str(v))
 
 
-class BaseModel(typing.BaseModel):
-    """
-    Extends pydantic's BaseModel with better support for
-    things like serialization & dynamic values from properties
-    """
-
-    class Config:
-        arbitrary_types_allowed = True
-        # https://github.com/pydantic/pydantic/discussions/5159
-        frozen = True
-        include: typing.Set[str] = set()
-        exclude: typing.Set[str] = set()
+class MProto(typing.BaseModel):
 
     def json(self, **kwargs):
         """Overrides pydantic for better serialization"""
@@ -149,3 +138,28 @@ class BaseModel(typing.BaseModel):
         return f"<{self.__class__.__name__}[..]>"
 
     __str__ = __repr__
+
+
+class BaseModel(MProto):
+    """
+    Extends pydantic's BaseModel with better support for
+    things like serialization & dynamic values from properties
+    """
+
+    class Config:
+        extra = typing.Extra.allow
+        arbitrary_types_allowed = True
+        # https://github.com/pydantic/pydantic/discussions/5159
+        frozen = True
+        include: typing.Set[str] = set()
+        exclude: typing.Set[str] = set()
+
+
+class StrictBaseModel(MProto):
+    class Config:
+        extra = typing.Extra.forbid
+        arbitrary_types_allowed = False
+        # https://github.com/pydantic/pydantic/discussions/5159
+        frozen = True
+        include: typing.Set[str] = set()
+        exclude: typing.Set[str] = set()

@@ -7,28 +7,7 @@ from fleks import models
 from fleks.util import typing
 
 
-class Config(models.BaseModel):
-    """ """
-
-    config_key: typing.ClassVar[str] = None
-    # debug = False
-    # parent = None
-    # priority = 100
-    # override_from_base = True
-
-    def __init__(self, **this_config) -> None:
-        """ """
-        kls_defaults = getattr(self.__class__, "defaults", {})
-        super().__init__(**{**kls_defaults, **this_config})
-        # conflicts = []
-        # for pname in self.__class__.__properties__:
-        #     if pname in called_defaults or pname in kls_defaults:
-        #         conflicts.append(pname)
-        #         continue
-        #     else:
-        #         self[pname] = getattr(self, pname)
-        # self.resolve_conflicts(conflicts)
-
+class ConfProto:
     def __getitem__(
         self,
         key,
@@ -47,6 +26,37 @@ class Config(models.BaseModel):
 
     def __repr__(self):
         return f"<{self.__class__.__name__}['{self.__class__.config_key}']>"
+
+
+from pydantic import ConfigDict
+
+
+class Config(models.BaseModel, ConfProto):
+    """ """
+
+    config_key: typing.ClassVar[str] = typing.Field(default=None)
+    # debug = False
+    # parent = None
+    # priority = 100
+    # override_from_base = True
+
+    def __init__(self, **this_config) -> None:
+        """ """
+        kls_defaults = getattr(self.__class__, "defaults", {})
+        super().__init__(**{**kls_defaults, **this_config})
+        # self._bootstrappery=this_config
+        # conflicts = []
+        # for pname in self.__class__.__properties__:
+        #     if pname in called_defaults or pname in kls_defaults:
+        #         conflicts.append(pname)
+        #         continue
+        #     else:
+        #         self[pname] = getattr(self, pname)
+        # self.resolve_conflicts(conflicts)
+
+
+class StrictConfig(models.StrictBaseModel, ConfProto):
+    model_config = ConfigDict(strict=True)
 
     # def as_dict(self, **kwargs):
     #     kwargs.update(
