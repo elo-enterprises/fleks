@@ -11,7 +11,7 @@ from pathlib import Path as BasePath
 from types import *  # noqa
 from typing import *  # noqa
 
-from pydantic import BaseModel, Field, validate_arguments  # noqa
+from pydantic import BaseModel, Extra, Field, validate_arguments  # noqa
 
 validate = validate_arguments
 
