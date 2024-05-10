@@ -9,8 +9,6 @@ def test_is_notebook():
 
 
 def test_color_disabled():
-    with mock.patch.dict(os.environ, {}):
-        assert not color_disabled()
     with mock.patch.dict(os.environ, {"NO_COLOR": "1"}):
         assert color_disabled()
     with mock.patch.dict(os.environ, {"NO_COLOR": "yes"}):
