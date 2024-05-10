@@ -42,13 +42,13 @@ class JSONEncoder(json.JSONEncoder):
             return enc(obj)
 
 
-def to_json(obj, cls=None, minified=False, indent: int = 2) -> str:
+def to_json(obj, cls=None, minified=False, indent: int = 2, **kwargs) -> str:
     """
     custom version of `json.dumps` to always use custom JSONEncoder
     """
     indent = None if minified else indent
     cls = cls if cls is not None else JSONEncoder
-    return json.dumps(obj, indent=indent, cls=cls)
+    return json.dumps(obj, indent=indent, cls=cls, **kwargs)
 
 
 JSONEncoder.register_encoder(type=map, fxn=list)
