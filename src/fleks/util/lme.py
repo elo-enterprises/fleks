@@ -45,6 +45,7 @@ CONSOLE = Console(
     stderr=True,
     color_system=COLOR_SYSTEM,
 )
+print = CONSOLE.print
 
 
 def set_global_level(level):
