@@ -15,15 +15,17 @@ COLOR_GREEN=\033[92m
 
 PYPI_PROJECT_NAME:=fleks
 
+export CMK_BIN=.cmk/compose.mk
+include ${CMK_BIN}
+$(call mk.import.plugins, py.mk)
+$(call mk.import.plugin.maybe, local.mk)
+# $(call mk.import.files, .github/actions.mk docs/docs.mk)
+py.pkg_name:=fleks 
+py.pkg_extras:=dev,testing,publish
+
 .PHONY: build docs test
 
-init:
-	# $(call _announce_target, $@)
-	set -x \
-	; pip install build \
-	; pip install --quiet -e .[dev] \
-	; pip install --quiet -e .[testing] \
-	; pip install --quiet -e .[publish]
+init: py.stat py.init
 
 build: clean
 	export version=`python setup.py --version` \
@@ -36,14 +38,7 @@ build: clean
 version:
 	@python setup.py --version
 
-clean:
-	rm -rf tmp.pypi* dist/* build/* \
-	&& rm -rf src/*.egg-info/
-	find . -name '*.tmp.*' -delete
-	find . -name '*.pyc' -delete
-	find . -name  __pycache__ -delete
-	find . -type d -name .tox | xargs -n1 -I% bash -x -c "rm -rf %"
-	rmdir build || true
+clean: flux.stage/cleaning py.clean
 
 pypi-release:
 	PYPI_RELEASE=1 make build \
@@ -54,18 +49,15 @@ pypi-release:
 
 release: clean normalize static-analysis test pypi-release
 
-tox-%:
-	tox -e ${*}
-
-normalize: tox-normalize
+normalize: tox/normalize
 lint: static-analysis
-static-analysis: tox-static-analysis
+static-analysis: tox/static-analysis
 test-units: utest
 test-integrations: itest
 smoke-test: stest
-itest: tox-itest
-utest: tox-utest
-stest: tox-stest
+itest: tox/itest
+utest: tox/utest
+stest: tox/stest
 test: test-units test-integrations smoke-test
 # coverage:
 # 	echo NotImplementedYet
@@ -73,7 +65,7 @@ test: test-units test-integrations smoke-test
 plan: docs-plan
 apply: docs-apply
 
-dtest: tox-dtest
+dtest: tox/dtest
 docs-test: dtest
 test-docs: docs-test
 docs-plan:
